@@ -7,7 +7,7 @@ let postList = [];
 // if local storage has posts sets the empty array = to local storage
 if (localStorage.posts) {
   postList = JSON.parse(localStorage.posts);
-// else it creates the array in local storage
+  // else it creates the array in local storage
 } else {
   localStorage.setItem("posts", JSON.stringify(postList));
 }
@@ -43,12 +43,13 @@ document.querySelector("#createPost").addEventListener("submit", (e) => {
 });
 console.log(JSON.parse(localStorage.posts));
 
-// 
-// 
+//
+//
 const postID = document.querySelector("#postID");
 
 function findAndFillPost(id) {
   postList = JSON.parse(localStorage.posts);
+  userName.value = postList[id - 1].author;
   postBody.value = postList[id - 1].content;
   tagString.value = postList[id - 1].tags.join(", ");
   postID.value = postList[id - 1].id;
@@ -56,8 +57,12 @@ function findAndFillPost(id) {
 
 function update(id) {
   postList[id - 1].content = postBody.value;
-  postList[id - 1].tags = tagString.value;
+  postList[id - 1].tags = tagString.value.split(", ");
   localStorage.setItem("posts", JSON.stringify(postList));
+  postBody.value = "";
+  userName.value = "";
+  tagString.value = "";
+  postID.value = "";
 }
 
 document.querySelector("#find").addEventListener("click", () => {
