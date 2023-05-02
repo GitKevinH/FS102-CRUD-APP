@@ -1,4 +1,10 @@
-
+const postBody = document.querySelector("#postBody");
+const userName = document.querySelector("#username");
+const tagString = document.querySelector("#tags");
+let postList = [];
+if (localStorage.posts) {
+    postList = JSON.parse(localStorage.posts)
+}
 function create(body, author, tags) {
   let newPost = {};
   postDate = new Date();
@@ -12,7 +18,7 @@ function addPost(post) {
   let id = postList.length;
   post.id = id + 1;
   postList.push(post);
-  localStorage.setItem("Posts", JSON.stringify(postList));
+  localStorage.setItem("posts", JSON.stringify(postList));
   return postList;
 }
 document.querySelector("#createPost").addEventListener("submit", (e) => {
@@ -24,6 +30,6 @@ document.querySelector("#createPost").addEventListener("submit", (e) => {
   postBody.value = "";
   userName.value = "";
   tagString.value = "";
-  console.log(JSON.parse(localStorage.getItem("Posts")));
+  console.log(JSON.parse(localStorage.posts));
 });
-console.log(JSON.parse(localStorage.getItem("Posts")));
+console.log(JSON.parse(localStorage.posts));
