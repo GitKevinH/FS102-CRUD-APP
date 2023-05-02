@@ -9,26 +9,36 @@
 //     tags: ["tag1", "tag2"],
 //   },
 // ];
-// const userName = document.querySelector("#username");
-// const postBody = document.querySelector("#postBody");
-// const tagString = document.querySelector("#tags");
+const postBody = document.querySelector("#postBody");
+const userName = document.querySelector("#username");
+const tagString = document.querySelector("#tags");
 let postList = [];
-// function handleClick() {
-function create(body, author, tagString) {
+
+function create(body, author, tags) {
   let newPost = {};
-  // newPost.postDate = new Date();
-  newPost.content = body;
+  postDate = new Date();
   newPost.author = author;
-  newPost.tags = tagString.split(", ");
+  newPost.content = body;
+  newPost.tags = tags.split(", ");
+  newPost.postDate = postDate.toLocaleString();
   return newPost;
 }
-// }
-function addPost(post){
-   let id = postList.length;
-   post.id = id;
-   postList.push(post);
-   return postList;
+function addPost(post) {
+  let id = postList.length;
+  post.id = id + 1;
+  postList.push(post);
+  localStorage.setItem("Posts", JSON.stringify(postList));
+  return postList;
 }
-addPost(create("here is some body text", "Jacob", "test1, create, hope"));
-addPost(create("here is some more body text", "Jacob", "test2, created, hoping"));
-console.log(postList);
+document.querySelector("#createPost").addEventListener("submit", (e) => {
+  e.preventDefault();
+  let body = postBody.value;
+  let author = userName.value;
+  let tags = tagString.value;
+  addPost(create(body, author, tags));
+  postBody.value = "";
+  userName.value = "";
+  tagString.value = "";
+  console.log(JSON.parse(localStorage.getItem("Posts")));
+});
+console.log(JSON.parse(localStorage.getItem("Posts")));
