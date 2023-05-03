@@ -29,7 +29,7 @@
               <li><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
             </ul>
     
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <form id="searchbar" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
               <input type="search" class="form-control" placeholder="Search Posts..." aria-label="Search">
             </form>
           </div>
@@ -62,6 +62,7 @@
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <button type="button" id="cancel-create-post-form" class="btn btn-danger">Cancel</button>
+                  <button type="button" id="save-post" class="btn btn-success" onclick="window.location.href=window.location.href">Save Post</button>
               </form>
         
           </div>
@@ -84,7 +85,7 @@
     <script src="kevin.js"></script>
     <script src="create.js"></script>
     <script src="app.js"></script>
-   
+
 </body>
 </html>
 
