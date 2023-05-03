@@ -14,11 +14,11 @@ if (localStorage.posts) {
 // function for creating a post object
 function create(body, author, tags) {
   let newPost = {};
-  postDate = new Date();
+  date = new Date();
   newPost.author = author;
   newPost.content = body;
   newPost.tags = tags.split(", ");
-  newPost.postDate = postDate.toLocaleString();
+  newPost.date = date.toLocaleString();
   return newPost;
 }
 // function for adding the post id and putting into local storage
@@ -31,7 +31,7 @@ function addPost(post) {
 }
 // executes the funtions when submit is clicked and clears the input fields
 document.querySelector("#createPost").addEventListener("submit", (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   let body = postBody.value;
   let author = userName.value;
   let tags = tagString.value;
@@ -45,15 +45,12 @@ console.log(JSON.parse(localStorage.posts));
 
 //
 //
-// Declare postID for input
-const postID = document.querySelector("#postID");
 // function that takes the post ID, finds a post by ID, and fills the relevant fields with the post info
 function findAndFillPost(id) {
   postList = JSON.parse(localStorage.posts);
   userName.value = postList[id - 1].author;
   postBody.value = postList[id - 1].content;
   tagString.value = postList[id - 1].tags.join(", ");
-  postID.value = postList[id - 1].id;
 }
 // function that takes the post ID to update the post at the current location
 function update(id) {
@@ -63,13 +60,19 @@ function update(id) {
   postBody.value = "";
   userName.value = "";
   tagString.value = "";
-  postID.value = "";
 }
 // event listener that funs the find and fill function
-document.querySelector("#find").addEventListener("click", () => {
-  findAndFillPost(postID.value);
+let postButtons = document.querySelectorAll("#editPost");
+
+postButtons.forEach((post) => {
+  console.log(post);
+  post.addEventListener("click", (e) => {
+    let editID = e.target.parentElement.id;
+    findAndFillPost(editID);
+  });
 });
+
 // event listener that updates the post
-document.querySelector("#update").addEventListener("click", () => {
-  update(postID.value);
-});
+// document.querySelector("#update").addEventListener("click", () => {
+//   update(postID.value);
+// });
