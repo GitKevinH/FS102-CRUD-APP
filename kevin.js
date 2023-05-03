@@ -25,15 +25,15 @@ const dummyData = [
 
 
 //read functionality
-function getPosst(dataArray) {
+function getPosts(dataArray) {
   dataArray.forEach((post) => {   // Loops through each element in the array and utilizes the data inside the object to assign to a bootstrap card
     let formatPost = `<div class="card">
                         <h5 class="card-header">Author: ${post.author}</h5>
                        <div class="card-body">
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
-                       <a href="#" class="btn btn-primary">Edit</a>
-                       <a href="#" class="btn btn-primary">Delete</a>
+                       <button type="button"class="btn btn-primary">Edit</button>
+                       <button type="button"class="btn btn-primary">Delete</button>
                         </div>
                       </div>,<br>`;
 
@@ -46,4 +46,4 @@ function getPosst(dataArray) {
   });
 }
 
-getPosst(dummyData);
+getPosts(dummyData);
