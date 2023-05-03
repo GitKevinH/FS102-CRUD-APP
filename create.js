@@ -31,7 +31,7 @@ function addPost(post) {
 }
 // executes the funtions when submit is clicked and clears the input fields
 document.querySelector("#createPost").addEventListener("submit", (e) => {
-  // e.preventDefault();
+  e.preventDefault();
   let body = postBody.value;
   let author = userName.value;
   let tags = tagString.value;
@@ -40,6 +40,10 @@ document.querySelector("#createPost").addEventListener("submit", (e) => {
   userName.value = "";
   tagString.value = "";
   console.log(JSON.parse(localStorage.posts));
+
+// Hides the create post form when the submit button is clicked
+const form = document.querySelector('.center-form');
+form.style.display = 'none';
 });
 console.log(JSON.parse(localStorage.posts));
 
@@ -69,10 +73,30 @@ postButtons.forEach((post) => {
   post.addEventListener("click", (e) => {
     let editID = e.target.parentElement.id;
     findAndFillPost(editID);
+
+    // shows the create post form when edit post is clicked
+    const form = document.querySelector('.center-form');
+    form.style.display = 'block';
+
+    // hides the submit button when edit post is clicked
+    document.querySelector('[type="submit"]').style.display = 'none';
+
+    //shows the save post button when edit is clicked
+    document.getElementById('save-post').style.display = 'inline-block';
   });
 });
 
-// event listener that updates the post
+// event listener that updates the post when save post is clicked
+document.getElementById('save-post').addEventListener('click', () => {
+
+  // TODO
 // document.querySelector("#update").addEventListener("click", () => {
 //   update(postID.value);
 // });
+
+// hides the create post form when clicked
+const form = document.querySelector('.center-form');
+form.style.display = 'none';
+});
+
+
