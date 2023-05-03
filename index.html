@@ -34,24 +34,25 @@
         <!-- Create a post here -->
         <div class="container">
           <div class="center-form">
+            <p id="error-message-container"></p>
               <h2 class="text-center mb-4">New Post</h2>
               <form>
                   <div class="mb-3">
                       <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                      <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
                   </div>
                   <div class="mb-3">
                       <label for="postBody" class="form-label">Post Body</label>
-                      <textarea class="form-control" id="postBody" rows="3" placeholder="Write your post here" maxlength="500"></textarea>
+                      <textarea class="form-control" id="postBody" rows="3" placeholder="Write your post here" maxlength="500" required></textarea>
                       <div class="form-text">Max 500 characters</div>
                   </div>
                   <div class="mb-3">
                       <label for="tags" class="form-label">Tags</label>
-                      <input type="text" class="form-control" id="tags" placeholder="Enter tags separated by commas">
+                      <input type="text" class="form-control" id="tags" placeholder="Enter tags separated by commas" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
               </form>
-              <div id="error-message-container"></div>
+        
           </div>
           <!-- New posts will be added here -->
           <div class="post-feed mt-5">
