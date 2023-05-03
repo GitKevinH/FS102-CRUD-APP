@@ -35,10 +35,10 @@ function searchTags(dataArray) {
       if (tag == tagsToSearch) {
         let formatPost = `<div class="card">
                         <h5 class="card-header">Author: ${post.author}</h5>
-                       <div class="card-body" id="editPost">
+                       <div class="card-body" id=${post.id}>
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
-                       <button type="button" id="editBTN" class="btn btn-primary">Edit</button>
+                       <button type="button" id="editPost" class="btn btn-primary">Edit</button>
                        <button type="button" id="deleteBTN" class="btn btn-primary">Delete</button>
                         </div>
                       </div>,<br>`;
