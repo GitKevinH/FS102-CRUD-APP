@@ -35,7 +35,7 @@ function searchTags(dataArray) {
       if (tag == tagsToSearch) {
         let formatPost = `<div class="card">
                         <h5 class="card-header">Author: ${post.author}</h5>
-                       <div class="card-body">
+                       <div class="card-body" id="editPost">
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
                        <button type="button" id="editBTN" class="btn btn-primary">Edit</button>
