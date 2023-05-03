@@ -34,6 +34,7 @@ function addPost(post) {
 }
 // executes the funtions when submit is clicked and clears the input fields
 document.querySelector("#createPost").addEventListener("submit", (e) => {
+  location.reload()
   let body = postBody.value;
   let author = userName.value;
   let tags = tagString.value;
