@@ -40,24 +40,26 @@
         <div class="container">
             <button id="show-create-post-form" class="btn btn-primary mb-3 text">Create New Post</button>
           <div class="center-form">
+            <p id="error-message-container"></p>
               <h2 class="text-center mb-4">New Post</h2>
               <form>
                   <div class="mb-3">
                       <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                      <input type="text" class="form-control" id="username" placeholder="Enter your username">
                   </div>
                   <div class="mb-3">
                       <label for="postBody" class="form-label">Post Body</label>
-                      <textarea class="form-control" id="postBody" rows="3" placeholder="Write your post here" maxlength="500" required></textarea>
+                      <textarea class="form-control" id="postBody" rows="3" placeholder="Write your post here" maxlength="500"></textarea>
                       <div class="form-text">Max 500 characters</div>
                   </div>
                   <div class="mb-3">
                       <label for="tags" class="form-label">Tags</label>
-                      <input type="text" class="form-control" id="tags" placeholder="Enter tags separated by commas" required>
+                      <input type="text" class="form-control" id="tags" placeholder="Enter tags separated by commas">
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <button type="button" id="cancel-create-post-form" class="btn btn-danger">Cancel</button>
               </form>
+        
           </div>
 
             <!-- New posts will be added here -->
@@ -78,5 +80,7 @@
     <script src="kevin.js"></script>
     <script src="create.js"></script>
     <script src="app.js"></script>
-  </body>
+    <script src="errorValidation.js"></script>
+</body>
 </html>
+
