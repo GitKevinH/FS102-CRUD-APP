@@ -45,8 +45,9 @@ console.log(JSON.parse(localStorage.posts));
 
 //
 //
+// Declare postID for input
 const postID = document.querySelector("#postID");
-
+// function that takes the post ID, finds a post by ID, and fills the relevant fields with the post info
 function findAndFillPost(id) {
   postList = JSON.parse(localStorage.posts);
   userName.value = postList[id - 1].author;
@@ -54,7 +55,7 @@ function findAndFillPost(id) {
   tagString.value = postList[id - 1].tags.join(", ");
   postID.value = postList[id - 1].id;
 }
-
+// function that takes the post ID to update the post at the current location
 function update(id) {
   postList[id - 1].content = postBody.value;
   postList[id - 1].tags = tagString.value.split(", ");
@@ -64,11 +65,11 @@ function update(id) {
   tagString.value = "";
   postID.value = "";
 }
-
+// event listener that funs the find and fill function
 document.querySelector("#find").addEventListener("click", () => {
   findAndFillPost(postID.value);
 });
-
+// event listener that updates the post
 document.querySelector("#update").addEventListener("click", () => {
   update(postID.value);
 });
