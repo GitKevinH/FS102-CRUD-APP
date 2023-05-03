@@ -4,8 +4,9 @@ const userName = document.querySelector("#username");
 const tagString = document.querySelector("#tags");
 // creating array for storing post objects
 let postList = [];
-// initialize variable for post ID
+// initialize variable for post ID location
 let editID = 0;
+let deleteID = 0;
 // if local storage has posts sets the empty array = to local storage
 if (localStorage.posts) {
   postList = JSON.parse(localStorage.posts);
@@ -52,16 +53,20 @@ console.log(JSON.parse(localStorage.posts));
 //
 // function that takes the post ID, finds a post by ID, and fills the relevant fields with the post info
 function findAndFillPost(id) {
-  postList = JSON.parse(localStorage.posts);
-  userName.value = postList[id - 1].author;
-  postBody.value = postList[id - 1].content;
-  tagString.value = postList[id - 1].tags.join(", ");
+  // postList = JSON.parse(localStorage.posts);
+  let editIndex = postList.findIndex(post => post.id == id);
+  console.log(editIndex);
+  userName.value = postList[editIndex].author;
+  postBody.value = postList[editIndex].content;
+  tagString.value = postList[editIndex].tags.join(", ");
 }
 // function that takes the post ID to update the post at the current location
 function update(id) {
-  postList[id - 1].content = postBody.value + " (Edited)";
-  postList[id - 1].tags = tagString.value.split(", ");
-  postList[id - 1].date = new Date().toLocaleString();
+  let updateIndex = postList.findIndex(post => post.id == id)
+  console.log(updateIndex);
+  postList[updateIndex].content = postBody.value + " (Edited)";
+  postList[updateIndex].tags = tagString.value.split(", ");
+  postList[updateIndex].date = new Date().toLocaleString();
   localStorage.setItem("posts", JSON.stringify(postList));
   postBody.value = "";
   userName.value = "";
@@ -97,8 +102,10 @@ document.getElementById("save-post").addEventListener("click", () => {
 
 //
 function deletePost(id) {
-  postList = JSON.parse(localStorage.posts);
-  postList.splice(id - 1, 1);
+  // postList = JSON.parse(localStorage.posts);
+  let deleteIndex = postList.findIndex(post => post.id == id);
+  console.log(deleteIndex);
+  postList.splice(deleteIndex, 1);
   localStorage.setItem("posts", JSON.stringify(postList));
 }
 
@@ -106,7 +113,7 @@ let deleteButtons = document.querySelectorAll("#deleteBTN");
 
 deleteButtons.forEach((post) => {
   post.addEventListener("click", (e) => {
-    let deleteID = e.target.parentElement.id;
+    deleteID = e.target.parentElement.id;
     deletePost(deleteID);
   });
 });
