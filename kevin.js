@@ -30,6 +30,7 @@ function searchTags(userTags) {
   let foundTagCounter = 0;
   JSON.parse(localStorage.posts).forEach((post) => {
     post.tags.forEach((tag) => {
+
       userTags.forEach((compareTag) => {
         if (tag == compareTag) {
           let formatPost = `<div class="card" >
@@ -38,7 +39,7 @@ function searchTags(userTags) {
                           <h6 class="card-title">${post.date}</h6>
                           <p class="card-text">${post.content}</p>
                           <button type="button" id="editPost" class="btn btn-primary">Edit</button>
-                          <button type="button"class="btn btn-primary">Delete</button>
+                          <button type="button" id="deleteBTN" class="btn btn-primary">Delete</button>
                             </div>
                           </div>,<br>`;
 
@@ -50,6 +51,7 @@ function searchTags(userTags) {
           foundTagCounter++;
         }
       });
+
     });
   });
   if (foundTagCounter == 0) {
@@ -81,7 +83,9 @@ function getPosts() {
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
                        <button type="button" id="editPost" class="btn btn-primary">Edit</button>
-                       <button type="button" id="deletePost" class="btn btn-primary">Delete</button>
+
+                       <button type="button" id="deleteBTN" class="btn btn-primary" onclick="window.location.href=window.location.href">Delete</button>
+
                         </div>
                       </div>,<br>`;
 
