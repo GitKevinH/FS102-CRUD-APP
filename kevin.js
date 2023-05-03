@@ -26,13 +26,13 @@ const dummyData = [
 
 //Search functionality
 
-function searchTags(dataArray) {
+function searchTags(userTags) {
   let tagsToSearch = "tag6";
   let foundTagCounter=0;
 
-  dataArray.forEach((post) => {
+  JSON.parse(localStorage.posts).forEach((post) => {
     post.tags.forEach((tag) => {
-      if (tag == tagsToSearch) {
+      if (tag == userTags) {
         let formatPost = `<div class="card">
                         <h5 class="card-header">Author: ${post.author}</h5>
                        <div class="card-body" id="editPost">
@@ -62,11 +62,12 @@ function searchTags(dataArray) {
 
   }
 }
-searchTags(dummyData);
+
+//searchTags("user1");
 
 //read functionality
-function getPosts(dataArray) {
-  dataArray.forEach((post) => {
+function getPosts() {
+  JSON.parse(localStorage.posts).forEach((post) => {
     // Loops through each element in the array and utilizes the data inside the object to assign to a bootstrap card
     let formatPost = `<div class="card" >
                         <h5 class="card-header">Author: ${post.author}</h5>
@@ -97,4 +98,4 @@ function getPosts(dataArray) {
 // //empty eventlistener for deleteBTN
 // document.getElementById('#deleteBTN').addEventListener('click', () => {
 // });
-getPosts(JSON.parse(localStorage.posts));
+getPosts();
