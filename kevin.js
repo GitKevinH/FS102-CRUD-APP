@@ -1,79 +1,75 @@
 //Template object
 
-const dummyData = [
-  {
-    id: 1,
-    content: "This is a post, can you see it?",
-    date: "01-01-2000",
-    author: "Stephen King",
-    tags: ["tag1", "tag2", "tag3"],
-  },
-  {
-    id: 0,
-    content: "This is a post, can you see it?",
-    date: "01-01-2000",
-    author: "Stephen King",
-    tags: ["tag1", "tag2", "tag3"],
-  },
-  {
-    id: 0,
-    content: "This is a post, can you see it?",
-    date: "01-01-2000",
-    author: "Stephen King",
-    tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
-  },
-];
+// const dummyData = [
+//   {
+//     id: 1,
+//     content: "This is a post, can you see it?",
+//     date: "01-01-2000",
+//     author: "Stephen King",
+//     tags: ["tag1", "tag2", "tag3"],
+//   },
+//   {
+//     id: 0,
+//     content: "This is a post, can you see it?",
+//     date: "01-01-2000",
+//     author: "Stephen King",
+//     tags: ["tag1", "tag2", "tag3"],
+//   },
+//   {
+//     id: 0,
+//     content: "This is a post, can you see it?",
+//     date: "01-01-2000",
+//     author: "Stephen King",
+//     tags: ["tag1", "tag2", "tag3", "tag4", "tag5"],
+//   },
+// ];
 
 //Search functionality
 
 function searchTags(userTags) {
-  let tagsToSearch = "tag6";
   let foundTagCounter = 0;
-
   JSON.parse(localStorage.posts).forEach((post) => {
     post.tags.forEach((tag) => {
-      if (tag == userTags) {
-        let formatPost = `<div class="card" >
-                          <h5 class="card-header">Author: ${post.author}</h5>
-                        <div class="card-body" id=${post.id}>
-                        <h6 class="card-title">${post.date}</h6>
-                        <p class="card-text">${post.content}</p>
-                        <button type="button" id="editPost" class="btn btn-primary">Edit</button>
-                        <button type="button"class="btn btn-primary">Delete</button>
-                          </div>
-                        </div>,<br>`;
+      userTags.forEach((compareTag) => {
+        if (tag == compareTag) {
+          let formatPost = `<div class="card" >
+                            <h5 class="card-header">Author: ${post.author}</h5>
+                          <div class="card-body" id=${post.id}>
+                          <h6 class="card-title">${post.date}</h6>
+                          <p class="card-text">${post.content}</p>
+                          <button type="button" id="editPost" class="btn btn-primary">Edit</button>
+                          <button type="button"class="btn btn-primary">Delete</button>
+                            </div>
+                          </div>,<br>`;
 
-        let newLI = document.createElement("div"); //creates new element to add to the HTML
-        newLI.innerHTML = formatPost;
+          let newLI = document.createElement("div"); //creates new element to add to the HTML
+          newLI.innerHTML = formatPost;
 
-        const postFeed = document.querySelector(".list-group"); //grabs existing element
-        postFeed.appendChild(newLI); //appends newly created element to append to existing element in HTML
-        foundTagCounter++;
-      }
+          const postFeed = document.querySelector(".list-group"); //grabs existing element
+          postFeed.appendChild(newLI); //appends newly created element to append to existing element in HTML
+          foundTagCounter++;
+        }
+      });
     });
   });
   if (foundTagCounter == 0) {
     //If no results come back(checked by the foundTag counter), this executes to display no results to the user
     let newLI = document.createElement("div"); //creates new element to add to the HTML
-    newLI.innerHTML = "No Results Found";
+    newLI.innerHTML = "No Results Found, please try a different tag(s)";
 
     const postFeed = document.querySelector(".list-group"); //grabs existing element
     postFeed.appendChild(newLI); //appends newly created element to append to existing element in HTML
   }
 }
 
-//event listener for searchbar
-const searchForm = document.querySelector('#searchbar');
-if(searchForm){
-  searchForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    console.log('form submit'+searchForm.value);
-    
-  });
-}
-
-
-//searchTags();
+const form = document.querySelector("#searchbar");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const input = form.querySelector('input[type="search"]');
+  keywords = input.value.replace(/\s+/g, "");
+  keywordsArray = keywords.split(",");
+  searchTags(keywordsArray);
+});
 
 //read functionality
 function getPosts() {
