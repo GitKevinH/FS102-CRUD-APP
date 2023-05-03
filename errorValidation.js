@@ -1,38 +1,82 @@
-const form = document.querySelector("#createPost");
-const usernameInput = document.querySelector("#username");
-const postBodyInput = document.querySelector("#postBody");
-const tagsInput = document.querySelector("#tags");
-const errorContainer = document.querySelector("#error-message-container");
+$(document).ready(function() {
+  // define required fields
+  var requiredFields = ['username', 'postBody', 'tags'];
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+  // clear the error message before the form is submitted
+  $('#message').text('');
+  $('#message').removeClass('warning');
 
-  const username = usernameInput.value;
-  const postBody = postBodyInput.value;
-  const tags = tagsInput.value;
+  $('form').on('submit', function(event) {
+    event.preventDefault();
 
-  // Validate username length
-  if (username.length < 3 || username.length > 20) {
-    errorContainer.textContent = "Username must be between 3 and 20 characters";
-    return;
-  }
+    // get input values
+    var username = $('#username').val();
+    var postBody = $('#postBody').val();
+    var tags = $('#tags').val();
 
-  // Validate postBody length
-  if (postBody.length < 10 || postBody.length > 500) {
-    errorContainer.textContent = "Post body must be between 10 and 500 characters";
-    return;
-  }
+    // validate input values
+    if (postBody.length > 500) {
+      // display error message if postBody is too long
+      $('#postBodyError').text('Post body must be no more than 500 characters');
+      $('#postBodyError').addClass('warning');
+      $('#postBodyLabel').addClass('warning');
+    } else {
+      // clear error message if postBody is within character limit
+      $('#postBodyError').text('');
+      $('#postBodyError').removeClass('warning');
+      $('#postBodyLabel').removeClass('warning');
+    }
 
-  // Validate tags
-  const tagsRegex = /^[a-zA-Z0-9, ]*$/;
-  if (!tagsRegex.test(tags)) {
-    errorContainer.textContent = "Tags can only contain letters, numbers, commas, and spaces";
-    return;
-  }
+    // check if any required fields are empty
+    var required = [username, postBody, tags];
+    for (var i = 0; i < required.length; i++) {
+      if (required[i] === '') {
+        // display error message and add warning class to label if field is empty
+        $('#message').text('Please Fill Out Required Fields');
+        $('#message').addClass('warning');
+        $('label').eq(i).addClass('warning');
+        $('#' + requiredFields[i] + '-error').text(requiredFields[i] + ' is a required field.');
+        $('#' + requiredFields[i] + '-error').show();
+      } else {
+        $('label').eq(i).removeClass('warning');
+        $('#' + requiredFields[i] + '-error').hide();
+      }
+    }
 
-  // If all validations pass, submit the form
-  errorContainer.textContent = "";
-  form.submit();
+    // check if tags are separated by commas
+    var tagList = tags.split(','); // split input value by commas
+    var validTags = true; // assume tags are valid
+    for (var i = 0; i < tagList.length; i++) {
+      if (tagList[i].trim() === '') { // ignore empty tags
+        continue;
+      }
+      if (tagList[i].indexOf(' ') >= 0) { // check if tag contains spaces
+        validTags = false;
+        break;
+      }
+    }
+    if (!validTags) {
+      // display error message if tags are not separated by commas
+      $('#tagsError').text('Tags must be separated by commas');
+      $('#tagsError').addClass('warning');
+      $('#tagsLabel').addClass('warning');
+    } else {
+      // clear error message if tags are separated by commas
+      $('#tagsError').text('');
+      $('#tagsError').removeClass('warning');
+      $('#tagsLabel').removeClass('warning');
+    }
+
+    // check if any fields have warning class
+    if ($('label').hasClass('warning')) {
+      // stop form submission if any required fields are empty or have errors
+      return false;
+    } else {
+      // remove form after submission
+      $('form').remove();
+    }
+  });
 });
+
 
 
