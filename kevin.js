@@ -32,8 +32,8 @@ function getPosts(dataArray) {
                        <div class="card-body">
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
-                       <button type="button"class="btn btn-primary">Edit</button>
-                       <button type="button"class="btn btn-primary">Delete</button>
+                       <button type="button" id="editBTN" class="btn btn-primary">Edit</button>
+                       <button type="button" id="deleteBTN" class="btn btn-primary">Delete</button>
                         </div>
                       </div>,<br>`;
 
@@ -46,4 +46,14 @@ function getPosts(dataArray) {
   });
 }
 
-getPosts(dummyData);
+getPosts(dummyData); //GetPosts function call to display on HTML
+
+// WIP These event holders won't work right out of gate until a post is created
+
+    // //empty eventlistener for editBTN
+    // document.getElementById('#editBTN').addEventListener('click', () => {
+    // });
+
+    // //empty eventlistener for deleteBTN
+    // document.getElementById('#deleteBTN').addEventListener('click', () => {
+    // });
