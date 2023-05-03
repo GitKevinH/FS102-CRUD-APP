@@ -67,11 +67,10 @@ function update(id) {
   userName.value = "";
   tagString.value = "";
 }
-// event listener that funs the find and fill function
+// event listener that runs the find and fill function
 let postButtons = document.querySelectorAll("#editPost");
 
 postButtons.forEach((post) => {
-  console.log(post);
   post.addEventListener("click", (e) => {
     editID = e.target.parentElement.id;
     findAndFillPost(editID);
@@ -94,4 +93,20 @@ document.getElementById("save-post").addEventListener("click", () => {
   // hides the create post form when clicked
   const form = document.querySelector(".center-form");
   form.style.display = "none";
+});
+
+//
+function deletePost(id) {
+  postList = JSON.parse(localStorage.posts);
+  postList.splice(id - 1, 1);
+  localStorage.setItem("posts", JSON.stringify(postList));
+}
+
+let deleteButtons = document.querySelectorAll("#deleteBTN");
+
+deleteButtons.forEach((post) => {
+  post.addEventListener("click", (e) => {
+    let deleteID = e.target.parentElement.id;
+    deletePost(deleteID);
+  });
 });

@@ -74,7 +74,7 @@ function getPosts(dataArray) {
                       <h6 class="card-title">${post.date}</h6>
                        <p class="card-text">${post.content}</p>
                        <button type="button" id="editPost" class="btn btn-primary">Edit</button>
-                       <button type="button"class="btn btn-primary">Delete</button>
+                       <button type="button" id="deleteBTN" class="btn btn-primary" onclick="window.location.href=window.location.href">Delete</button>
                         </div>
                       </div>,<br>`;
 
