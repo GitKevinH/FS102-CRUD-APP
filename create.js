@@ -31,10 +31,11 @@ function addPost(post) {
 }
 // executes the funtions when submit is clicked and clears the input fields
 document.querySelector("#createPost").addEventListener("submit", (e) => {
-  // e.preventDefault();
+  // saves the relevant data in variables
   let body = postBody.value;
   let author = userName.value;
   let tags = tagString.value;
+  // creates the post object and adds it to local storage
   addPost(create(body, author, tags));
   postBody.value = "";
   userName.value = "";
@@ -53,10 +54,14 @@ function findAndFillPost(id) {
   tagString.value = postList[id - 1].tags.join(", ");
 }
 // function that takes the post ID to update the post at the current location
-function update(id) {
+function updatePost(id) {
+  // sets the post values = to the fields
   postList[id - 1].content = postBody.value;
   postList[id - 1].tags = tagString.value.split(", ");
+  postList[id - 1].date = new Date().toLocaleString();
+  // Stores updated post back in local data
   localStorage.setItem("posts", JSON.stringify(postList));
+  // clears the fields
   postBody.value = "";
   userName.value = "";
   tagString.value = "";
@@ -74,5 +79,5 @@ postButtons.forEach((post) => {
 
 // event listener that updates the post
 // document.querySelector("#update").addEventListener("click", () => {
-//   update(postID.value);
+//   updatePost(postID.value);
 // });
