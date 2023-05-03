@@ -4,6 +4,8 @@ const userName = document.querySelector("#username");
 const tagString = document.querySelector("#tags");
 // creating array for storing post objects
 let postList = [];
+// initialize variable for post ID
+let editID = 0;
 // if local storage has posts sets the empty array = to local storage
 if (localStorage.posts) {
   postList = JSON.parse(localStorage.posts);
@@ -31,7 +33,6 @@ function addPost(post) {
 }
 // executes the funtions when submit is clicked and clears the input fields
 document.querySelector("#createPost").addEventListener("submit", (e) => {
-  // e.preventDefault();
   let body = postBody.value;
   let author = userName.value;
   let tags = tagString.value;
@@ -40,6 +41,10 @@ document.querySelector("#createPost").addEventListener("submit", (e) => {
   userName.value = "";
   tagString.value = "";
   console.log(JSON.parse(localStorage.posts));
+
+  // Hides the create post form when the submit button is clicked
+  const form = document.querySelector(".center-form");
+  form.style.display = "none";
 });
 console.log(JSON.parse(localStorage.posts));
 
@@ -54,25 +59,54 @@ function findAndFillPost(id) {
 }
 // function that takes the post ID to update the post at the current location
 function update(id) {
-  postList[id - 1].content = postBody.value;
+  postList[id - 1].content = postBody.value + " (Edited)";
   postList[id - 1].tags = tagString.value.split(", ");
+  postList[id - 1].date = new Date().toLocaleString();
   localStorage.setItem("posts", JSON.stringify(postList));
   postBody.value = "";
   userName.value = "";
   tagString.value = "";
 }
-// event listener that funs the find and fill function
+// event listener that runs the find and fill function
 let postButtons = document.querySelectorAll("#editPost");
 
 postButtons.forEach((post) => {
-  console.log(post);
   post.addEventListener("click", (e) => {
-    let editID = e.target.parentElement.id;
+    editID = e.target.parentElement.id;
     findAndFillPost(editID);
+
+    // shows the create post form when edit post is clicked
+    const form = document.querySelector(".center-form");
+    form.style.display = "block";
+
+    // hides the submit button when edit post is clicked
+    document.querySelector('[type="submit"]').style.display = "none";
+
+    //shows the save post button when edit is clicked
+    document.getElementById("save-post").style.display = "inline-block";
   });
 });
 
-// event listener that updates the post
-// document.querySelector("#update").addEventListener("click", () => {
-//   update(postID.value);
-// });
+// event listener that updates the post when save post is clicked
+document.getElementById("save-post").addEventListener("click", () => {
+  update(editID);
+  // hides the create post form when clicked
+  const form = document.querySelector(".center-form");
+  form.style.display = "none";
+});
+
+//
+function deletePost(id) {
+  postList = JSON.parse(localStorage.posts);
+  postList.splice(id - 1, 1);
+  localStorage.setItem("posts", JSON.stringify(postList));
+}
+
+let deleteButtons = document.querySelectorAll("#deleteBTN");
+
+deleteButtons.forEach((post) => {
+  post.addEventListener("click", (e) => {
+    let deleteID = e.target.parentElement.id;
+    deletePost(deleteID);
+  });
+});
