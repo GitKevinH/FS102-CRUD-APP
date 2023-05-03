@@ -108,4 +108,4 @@ function getPosts() {
 // //empty eventlistener for deleteBTN
 // document.getElementById('#deleteBTN').addEventListener('click', () => {
 // });
-//getPosts();
+getPosts();
